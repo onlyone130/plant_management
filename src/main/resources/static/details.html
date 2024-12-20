@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="kor">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plant Details</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+    <h1>Plant Details</h1>
+    <h4>식물 세부사항</h4>
+    <nav>
+        <a href="index.html">식물 목록으로 돌아가기</a>
+    </nav>
+</header>
+
+<main>
+    <section id="plant-info">
+        <h2 id="plant-name">Plant Name (식물 이름) </h2>
+        <p id="scientific-name">Scientific Name (학명) : </p>
+    </section>
+
+    <!-- Additional Details Form -->
+    <section id="add-details">
+        <h2>Additional Details</h2>
+        <form id="details-form" action="addPlant" method="POST">
+            <label for="species">Species (종) : </label>
+            <input type="text" id="species" name="species" required>
+
+            <label for="difficulty-level">Difficulty Level (난이도) :</label>
+            <select id="difficulty-level" name="difficulty-level">
+                <option value="easy">Easy (쉬움)</option>
+                <option value="moderate">Moderate (중간)</option>
+                <option value="hard">Hard (어려움)</option>
+            </select>
+
+            <label for="watering-frequency">Recommended Watering Frequency (days) (권장관수횟수-일) :</label>
+            <input type="number" id="watering-frequency" name="watering-frequency" required>
+
+            <label for="fertilizer-type">Fertilizer Type (비료 종류) :</label>
+            <input type="text" id="fertilizer-type" name="fertilizer-type">
+
+            <label for="fertilizer-ratio">Fertilizer Ratio (비료 비율):</label>
+            <input type="text" id="fertilizer-ratio" name="fertilizer-ratio">
+
+            <label for="temperature">Optimal Temperature (°C) (최적 온도) :</label>
+            <input type="number" id="temperature" name="temperature" step="0.1">
+
+            <label for="humidity">Optimal Humidity (%) (최적 습도) :</label>
+            <input type="number" id="humidity" name="humidity" step="0.1">
+
+            <label for="growth-notes">Growth Notes (성장 노트) :</label>
+            <textarea id="growth-notes" name="growth-notes"></textarea>
+
+            <button type="submit">Save Details (저장하기)</button>
+        </form>
+
+    </section>
+
+</main>
+
+<script>
+    // URL Parameters를 통해 식물 정보 가져오기
+    const urlParams = new URLSearchParams(window.location.search);
+    const plantName = urlParams.get('name');
+    const scientificName = urlParams.get('scientific_name');
+
+    // 페이지에 식물 정보 표시
+    document.getElementById('plant-name').textContent = plantName || "Unknown Plant";
+    document.getElementById('scientific-name').textContent = `Scientific Name: ${scientificName || "Unknown"}`;
+
+    // 추가 세부 정보 저장
+    document.getElementById("details-form").addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        const plantDetails = {
+            species: document.getElementById("species").value,
+            difficultyLevel: document.getElementById("difficulty-level").value,
+            wateringFrequency: document.getElementById("watering-frequency").value,
+            fertilizerType: document.getElementById("fertilizer-type").value,
+            fertilizerRatio: document.getElementById("fertilizer-ratio").value,
+            temperature: document.getElementById("temperature").value,
+            humidity: document.getElementById("humidity").value,
+            growthNotes: document.getElementById("growth-notes").value
+        };
+
+        // 서버로 데이터 전송
+        fetch("http://localhost:9090/plants", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(plantDetails)
+        })
+            .then(response => {
+                if (response.ok) {
+                    alert("Details saved successfully!");
+                    window.location.href = "index.html";
+                } else {
+                    alert("Failed to save details.");
+                }
+            })
+            .catch(error => console.error("Error:", error));
+    });
+
+</script>
+</body>
+</html>

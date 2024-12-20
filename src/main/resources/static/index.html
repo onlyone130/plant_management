@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="kor">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plant Management System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+    <h1>Plants Management Systems</h1>
+    <h3>식물 관리 시스템</h3>
+</header>
+
+<main>
+    <!-- Plant Registration Form -->
+    <section id="add-plant">
+        <h2>Add New Plant</h2>
+        <form id="add-plant-form">
+            <label for="plant-name">Plant Name (식물이름) :</label>
+            <input type="text" id="plant-name" required>
+
+            <label for="scientific-name">Scientific Name (학명) :</label>
+            <input type="text" id="scientific-name">
+
+            <button type="submit">Add Plant (추가하기)</button>
+        </form>
+    </section>
+
+    <!-- Plant List -->
+    <section id="plant-list">
+        <h2>Registered Plants</h2>
+        <h5>등록된 식물</h5>
+        <ul id="plant-list-container">
+            <!-- 식물 목록이 JavaScript로 추가될 예정 -->
+        </ul>
+    </section>
+</main>
+
+<script src="script.js" defer></script>
+</body>
+</html>
