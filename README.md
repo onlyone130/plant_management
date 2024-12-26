@@ -27,4 +27,8 @@
 ### 데이터베이스 설계
 * 필요한 데이터베이스 테이블
   + Plants (식물 정보 테이블)
-  + 
+  + WateringSchedule (물주기 스케줄 테이블)
+  + FertilizerSchedule (비료 스케줄 테이블)
+  + EnvironmentalConditions (환경 조건 테이블)
+ 
+
